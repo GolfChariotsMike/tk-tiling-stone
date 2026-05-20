@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TK Tiling and Stone | Premium Tiling & Stonework — South West WA</title>
+  <meta name="description" content="TK Tiling and Stone — over 20 years experience specialising in high end custom builds, luxury pools, feature walls, fireplaces and stonework across South West WA." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <div class="logo">
+        <span class="logo-tk">TK</span>
+        <span class="logo-text">Tiling &amp; Stone</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact" class="btn-nav">Get a Quote</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Get a Quote</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <img src="https://fbpdcwbzkcklaxvqtayd.supabase.co/storage/v1/object/public/tktiling/gallery-1.jpg" alt="Luxury pool tiling" class="hero-img active" data-index="0" />
+      <img src="https://fbpdcwbzkcklaxvqtayd.supabase.co/storage/v1/object/public/tktiling/gallery-4.jpg" alt="Feature fireplace" class="hero-img" data-index="1" />
+      <img src="https://fbpdcwbzkcklaxvqtayd.supabase.co/storage/v1/object/public/tktiling/gallery-5.jpg" alt="Stone work" class="hero-img" data-index="2" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">South West Western Australia</p>
+      <h1>Craftsmanship in<br /><em>Tiling &amp; Stone</em></h1>
+      <p class="hero-sub">Over 20 years of experience delivering premium tiling and stonework for high-end custom builds across the South West.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get a Free Quote</a>
+        <a href="#gallery" class="btn-secondary">View Our Work</a>
+      </div>
+    </div>
+    <div class="hero-dots">
+      <button class="dot active" data-index="0"></button>
+      <button class="dot" data-index="1"></button>
+      <button class="dot" data-index="2"></button>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">What We Do</p>
+        <h2>Our Services</h2>
+        <p class="section-sub">From luxury pools to feature walls — every project is treated with the same precision and care.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>Pools &amp; Wet Areas</h3>
+          <p>Luxury pool surrounds, spa areas and wet rooms using premium stone cladding and mosaic tiling.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>Feature Walls &amp; Fireplaces</h3>
+          <p>Bespoke feature walls and fireplace surrounds that become the centrepiece of any room.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>Natural Stonework</h3>
+          <p>Crazy paving, stone cladding, and custom stonework using natural materials sourced for each project.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>Floor &amp; Wall Tiling</h3>
+          <p>Large-format porcelain, marble, and travertine installations for residential and commercial spaces.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>Commercial Projects</h3>
+          <p>Polished concrete, commercial fit-outs and large-scale tiling for hospitality and retail.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>Custom Builds</h3>
+          <p>Work directly with architects and builders on high-end custom homes requiring expert stone and tile work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Our Work</p>
+        <h2>Project Gallery</h2>
+        <p class="section-sub">A selection of recent projects across South West WA.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose">✕</button>
+      <button class="lightbox-prev" id="lightboxPrev">‹</button>
+      <button class="lightbox-next" id="lightboxNext">›</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Client Stories</p>
+        <h2>What Our Clients Say</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Tom did an incredible job on our pool surround and outdoor entertaining area. The attention to detail was exceptional — exactly what we envisioned for our custom build."</p>
+          <div class="testimonial-author">
+            <strong>Sarah &amp; James M.</strong>
+            <span>Dunsborough</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"We hired TK Tiling for our fireplace feature wall and couldn't be happier. The stonework is stunning and the craftsmanship is second to none. Highly recommend."</p>
+          <div class="testimonial-author">
+            <strong>David R.</strong>
+            <span>Busselton</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Professional, reliable and genuinely skilled. Tom takes real pride in his work and it shows. Our bathroom renovation was completed on time and looks absolutely beautiful."</p>
+          <div class="testimonial-author">
+            <strong>Karen &amp; Paul T.</strong>
+            <span>Margaret River</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-info">
+          <p class="eyebrow">Get In Touch</p>
+          <h2>Request a Free Quote</h2>
+          <p>Based in the South West of WA, Tom is available for residential and commercial projects. Contact him today for an obligation-free quote.</p>
+          <div class="contact-details">
+            <a href="tel:0426953606" class="contact-item">
+              <span class="contact-icon">📞</span>
+              <span>0426 953 606</span>
+            </a>
+            <a href="mailto:tktilingandstone@outlook.com" class="contact-item">
+              <span class="contact-icon">✉️</span>
+              <span>tktilingandstone@outlook.com</span>
+            </a>
+            <a href="https://www.facebook.com/tktilingandstone" target="_blank" class="contact-item">
+              <span class="contact-icon">📘</span>
+              <span>Facebook</span>
+            </a>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="Your phone number" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="project">Project Type</label>
+            <select id="project" name="project">
+              <option value="">Select a service...</option>
+              <option>Pool &amp; Wet Area</option>
+              <option>Feature Wall / Fireplace</option>
+              <option>Natural Stonework</option>
+              <option>Floor &amp; Wall Tiling</option>
+              <option>Commercial Project</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" required rows="4" placeholder="Tell us about your project..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-full" id="submitBtn">Send Message</button>
+          <p class="form-success" id="formSuccess">Thanks! Tom will be in touch shortly.</p>
+          <p class="form-error" id="formError">Something went wrong. Please try calling or emailing directly.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="logo">
+            <span class="logo-tk">TK</span>
+            <span class="logo-text">Tiling &amp; Stone</span>
+          </div>
+          <p>Premium tiling and stonework across South West WA.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <p class="footer-copy">© 2026 TK Tiling and Stone. All rights reserved. | South West WA</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
