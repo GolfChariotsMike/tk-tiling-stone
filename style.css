@@ -5,8 +5,8 @@
 :root {
   --stone: #2c2a27;
   --stone-light: #3d3a36;
-  --gold: #c9a96e;
-  --gold-light: #e2c99a;
+  --gold: #3a9fd5;
+  --gold-light: #5bb5e8;
   --cream: #f8f5f0;
   --white: #ffffff;
   --grey: #6b6b6b;
@@ -42,6 +42,9 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
+  background: rgba(20,30,48,0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: background var(--transition), box-shadow var(--transition);
   padding: 0;
 }
@@ -58,21 +61,18 @@ body {
   justify-content: space-between;
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-tk {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 2px;
+.logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 50%;
 }
-.logo-text {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--white);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  line-height: 1.2;
+.logo-img-footer {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  opacity: 0.85;
 }
 .nav-links {
   list-style: none;
