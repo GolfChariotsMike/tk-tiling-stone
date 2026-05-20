@@ -65,13 +65,13 @@ body {
   height: 48px;
   width: auto;
   object-fit: contain;
-  mix-blend-mode: screen;
+  
 }
 .logo-img-footer {
   height: 44px;
   width: auto;
   object-fit: contain;
-  mix-blend-mode: screen;
+  
   opacity: 0.9;
 }
 .nav-links {
