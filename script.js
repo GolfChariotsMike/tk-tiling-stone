@@ -50,24 +50,37 @@ dots.forEach(dot => {
 
 slideInterval = setInterval(nextSlide, 5000);
 
-// --- Gallery ---
+// --- Gallery (dynamic from storage) ---
 const galleryGrid = document.getElementById('galleryGrid');
-const galleryImages = Array.from({ length: GALLERY_COUNT }, (_, i) =>
-  `${SUPABASE_URL}/storage/v1/object/public/tktiling/gallery-${i + 1}.jpg`
-);
+let galleryImages = [];
 
-galleryImages.forEach((src, i) => {
-  const item = document.createElement('div');
-  item.className = 'gallery-item';
-  item.innerHTML = `
-    <img src="${src}" alt="TK Tiling project ${i + 1}" loading="lazy" />
-    <div class="gallery-item-overlay">
-      <span class="gallery-expand">+</span>
-    </div>
-  `;
-  item.addEventListener('click', () => openLightbox(i));
-  galleryGrid.appendChild(item);
-});
+async function loadGallery() {
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/tktiling`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON },
+    body: JSON.stringify({ prefix: '', limit: 200, sortBy: { column: 'name', order: 'asc' } })
+  });
+  const files = await res.json();
+  galleryImages = files
+    .filter(f => f.name && /\.(jpg|jpeg|png|webp)$/i.test(f.name))
+    .map(f => `${SUPABASE_URL}/storage/v1/object/public/tktiling/${f.name}`);
+
+  galleryGrid.innerHTML = '';
+  galleryImages.forEach((src, i) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `
+      <img src="${src}" alt="TK Tiling project ${i + 1}" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <span class="gallery-expand">+</span>
+      </div>
+    `;
+    item.addEventListener('click', () => openLightbox(i));
+    galleryGrid.appendChild(item);
+  });
+}
+
+loadGallery();
 
 // --- Lightbox ---
 const lightbox = document.getElementById('lightbox');

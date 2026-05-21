@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — TK Tiling and Stone</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; color: #333; }
+
+    /* Login */
+    #loginScreen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; background: #1a1a2e;
+    }
+    .login-box {
+      background: #fff; border-radius: 12px; padding: 40px;
+      width: 100%; max-width: 380px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .login-box h1 { font-size: 1.4rem; margin-bottom: 8px; color: #1a1a2e; }
+    .login-box p { font-size: 0.85rem; color: #888; margin-bottom: 24px; }
+    .login-box input {
+      width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;
+      margin-bottom: 12px; font-size: 0.95rem;
+    }
+    .login-box button {
+      width: 100%; padding: 12px; background: #c8a96e; color: #fff;
+      border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .login-box button:hover { background: #b8944f; }
+    .login-error { color: #e53e3e; font-size: 0.85rem; margin-top: 8px; display: none; }
+
+    /* Dashboard */
+    #dashboard { display: none; min-height: 100vh; }
+    header {
+      background: #1a1a2e; color: #fff; padding: 16px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    header h1 { font-size: 1.2rem; }
+    header span { font-size: 0.85rem; color: #c8a96e; }
+    header button {
+      background: transparent; border: 1px solid #c8a96e; color: #c8a96e;
+      padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+    }
+    header button:hover { background: #c8a96e; color: #1a1a2e; }
+
+    main { max-width: 1100px; margin: 32px auto; padding: 0 24px; }
+
+    /* Upload zone */
+    .upload-section {
+      background: #fff; border-radius: 12px; padding: 28px;
+      margin-bottom: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .upload-section h2 { font-size: 1.1rem; margin-bottom: 16px; color: #1a1a2e; }
+    .drop-zone {
+      border: 2px dashed #c8a96e; border-radius: 10px; padding: 40px;
+      text-align: center; cursor: pointer; transition: background 0.2s;
+      color: #888; font-size: 0.95rem;
+    }
+    .drop-zone.dragover { background: #fdf5e6; }
+    .drop-zone input { display: none; }
+    .drop-zone p { margin-top: 8px; font-size: 0.8rem; }
+    #uploadProgress { margin-top: 16px; }
+    .progress-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.85rem;
+    }
+    .progress-item .status { margin-left: auto; font-weight: 600; }
+    .status.ok { color: #38a169; }
+    .status.err { color: #e53e3e; }
+    .status.uploading { color: #c8a96e; }
+
+    /* Gallery grid */
+    .gallery-section {
+      background: #fff; border-radius: 12px; padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .gallery-section h2 {
+      font-size: 1.1rem; margin-bottom: 4px; color: #1a1a2e;
+    }
+    .gallery-section .subtitle { font-size: 0.8rem; color: #888; margin-bottom: 20px; }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .admin-photo {
+      position: relative; border-radius: 8px; overflow: hidden;
+      background: #eee; aspect-ratio: 4/3;
+    }
+    .admin-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .admin-photo .overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0);
+      display: flex; align-items: flex-end; justify-content: flex-end;
+      padding: 8px; transition: background 0.2s;
+    }
+    .admin-photo:hover .overlay { background: rgba(0,0,0,0.45); }
+    .delete-btn {
+      background: #e53e3e; color: #fff; border: none; border-radius: 6px;
+      padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 600;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .admin-photo:hover .delete-btn { opacity: 1; }
+    .admin-photo .filename {
+      position: absolute; top: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.55); color: #fff; font-size: 0.7rem;
+      padding: 4px 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .loading-msg { color: #888; font-size: 0.9rem; padding: 20px 0; }
+    .empty-msg { color: #888; font-size: 0.9rem; padding: 20px 0; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>TK Tiling & Stone</h1>
+    <p>Admin dashboard — sign in to manage your gallery</p>
+    <input type="email" id="emailInput" placeholder="Email address" value="info@tktilingandstone.com.au" />
+    <input type="password" id="passwordInput" placeholder="Password" />
+    <button id="loginBtn">Sign In</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <header>
+    <h1>🏠 TK Tiling & Stone — Gallery Admin</h1>
+    <span id="userEmail"></span>
+    <button id="logoutBtn">Sign Out</button>
+  </header>
+  <main>
+
+    <div class="upload-section">
+      <h2>Upload Photos</h2>
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" multiple accept="image/*" />
+        <strong>Click to select photos</strong> or drag and drop here
+        <p>JPG, PNG, WEBP supported — multiple files OK</p>
+      </div>
+      <div id="uploadProgress"></div>
+    </div>
+
+    <div class="gallery-section">
+      <h2>Gallery Photos</h2>
+      <p class="subtitle">Hover over a photo and click Remove to delete it from the website.</p>
+      <div class="admin-grid" id="adminGrid">
+        <p class="loading-msg">Loading photos...</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://fbpdcwbzkcklaxvqtayd.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicGRjd2J6a2NrbGF4dnF0YXlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkzNDg0OTEsImV4cCI6MjA4NDkyNDQ5MX0.9q0OH-gKssCWc_iNS-mSapunSkP7nezGNZn5fS_8_AA';
+const BUCKET = 'tktiling';
+
+let authToken = null;
+
+// ---- AUTH ----
+document.getElementById('loginBtn').addEventListener('click', login);
+document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+async function login() {
+  const email = document.getElementById('emailInput').value.trim();
+  const password = document.getElementById('passwordInput').value;
+  const errEl = document.getElementById('loginError');
+  errEl.style.display = 'none';
+
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON },
+    body: JSON.stringify({ email, password })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    errEl.textContent = data.error_description || data.message || 'Login failed';
+    errEl.style.display = 'block';
+    return;
+  }
+  authToken = data.access_token;
+  document.getElementById('userEmail').textContent = email;
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  loadGallery();
+}
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  authToken = null;
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+});
+
+// ---- GALLERY ----
+async function loadGallery() {
+  const grid = document.getElementById('adminGrid');
+  grid.innerHTML = '<p class="loading-msg">Loading photos...</p>';
+
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/${BUCKET}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_ANON,
+      'Authorization': `Bearer ${authToken}`
+    },
+    body: JSON.stringify({ prefix: '', limit: 200, sortBy: { column: 'name', order: 'asc' } })
+  });
+  const files = await res.json();
+  const images = files.filter(f => f.name && /\.(jpg|jpeg|png|webp)$/i.test(f.name));
+
+  if (!images.length) {
+    grid.innerHTML = '<p class="empty-msg">No photos yet. Upload some above!</p>';
+    return;
+  }
+
+  grid.innerHTML = '';
+  images.forEach(file => {
+    const url = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${file.name}`;
+    const div = document.createElement('div');
+    div.className = 'admin-photo';
+    div.innerHTML = `
+      <img src="${url}" alt="${file.name}" loading="lazy" />
+      <div class="filename">${file.name}</div>
+      <div class="overlay">
+        <button class="delete-btn" data-name="${file.name}">Remove</button>
+      </div>
+    `;
+    div.querySelector('.delete-btn').addEventListener('click', () => deletePhoto(file.name, div));
+    grid.appendChild(div);
+  });
+}
+
+async function deletePhoto(name, el) {
+  if (!confirm(`Remove "${name}" from the gallery?`)) return;
+  el.style.opacity = '0.4';
+
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${BUCKET}/${encodeURIComponent(name)}`, {
+    method: 'DELETE',
+    headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${authToken}` }
+  });
+  if (res.ok) {
+    el.remove();
+  } else {
+    el.style.opacity = '1';
+    alert('Failed to delete photo. Please try again.');
+  }
+}
+
+// ---- UPLOAD ----
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', () => uploadFiles(fileInput.files));
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  uploadFiles(e.dataTransfer.files);
+});
+
+async function uploadFiles(files) {
+  if (!files.length) return;
+  const progress = document.getElementById('uploadProgress');
+  progress.innerHTML = '';
+
+  for (const file of files) {
+    const row = document.createElement('div');
+    row.className = 'progress-item';
+    row.innerHTML = `<span>${file.name}</span><span class="status uploading">Uploading...</span>`;
+    progress.appendChild(row);
+    const statusEl = row.querySelector('.status');
+
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${BUCKET}/${encodeURIComponent(file.name)}`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': `Bearer ${authToken}`,
+        'Content-Type': file.type,
+        'x-upsert': 'true'
+      },
+      body: file
+    });
+
+    if (res.ok) {
+      statusEl.textContent = '✓ Done';
+      statusEl.className = 'status ok';
+    } else {
+      const err = await res.json().catch(() => ({}));
+      statusEl.textContent = '✗ Failed';
+      statusEl.className = 'status err';
+      console.error(err);
+    }
+  }
+
+  // Reload gallery after uploads
+  setTimeout(loadGallery, 500);
+  fileInput.value = '';
+}
+</script>
+</body>
+</html>
