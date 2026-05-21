@@ -57,7 +57,7 @@ let galleryImages = [];
 async function loadGallery() {
   const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/tktiling`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON },
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` },
     body: JSON.stringify({ prefix: '', limit: 200, sortBy: { column: 'name', order: 'asc' } })
   });
   const files = await res.json();
