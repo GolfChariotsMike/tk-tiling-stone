@@ -62,7 +62,7 @@ async function loadGallery() {
   });
   const files = await res.json();
   galleryImages = files
-    .filter(f => f.name && /\.(jpg|jpeg|png|webp)$/i.test(f.name))
+    .filter(f => f.name && /\.(jpg|jpeg|png|webp)$/i.test(f.name) && f.name.startsWith('gallery-'))
     .map(f => `${SUPABASE_URL}/storage/v1/object/public/tktiling/${f.name}`);
 
   galleryGrid.innerHTML = '';
