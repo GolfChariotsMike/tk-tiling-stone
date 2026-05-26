@@ -28,27 +28,29 @@ const dots = document.querySelectorAll('.dot');
 let currentSlide = 0;
 let slideInterval;
 
-function goToSlide(i) {
-  heroImgs[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-  currentSlide = i;
-  heroImgs[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
-}
+if (heroImgs.length > 1) {
+  function goToSlide(i) {
+    heroImgs[currentSlide].classList.remove('active');
+    if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+    currentSlide = i;
+    heroImgs[currentSlide].classList.add('active');
+    if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+  }
 
-function nextSlide() {
-  goToSlide((currentSlide + 1) % heroImgs.length);
-}
+  function nextSlide() {
+    goToSlide((currentSlide + 1) % heroImgs.length);
+  }
 
-dots.forEach(dot => {
-  dot.addEventListener('click', () => {
-    clearInterval(slideInterval);
-    goToSlide(parseInt(dot.dataset.index));
-    slideInterval = setInterval(nextSlide, 5000);
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      clearInterval(slideInterval);
+      goToSlide(parseInt(dot.dataset.index));
+      slideInterval = setInterval(nextSlide, 5000);
+    });
   });
-});
 
-slideInterval = setInterval(nextSlide, 5000);
+  slideInterval = setInterval(nextSlide, 5000);
+}
 
 // --- Gallery (dynamic from storage) ---
 const galleryGrid = document.getElementById('galleryGrid');
