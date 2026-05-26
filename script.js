@@ -180,18 +180,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// Locations dropdown — click to open/close
+// Locations dropdown — click to open/close only
 const dropdownToggle = document.querySelector('.dropdown-toggle');
 const dropdown = document.querySelector('.dropdown');
 if (dropdownToggle && dropdown) {
   dropdownToggle.addEventListener('click', e => {
     e.preventDefault();
     dropdown.classList.toggle('open');
-  });
-  // Close when clicking anywhere else
-  document.addEventListener('click', e => {
-    if (!dropdown.contains(e.target)) {
-      dropdown.classList.remove('open');
-    }
   });
 }
