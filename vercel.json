@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/busselton", "destination": "/busselton.html" },
+    { "source": "/capel", "destination": "/capel.html" },
+    { "source": "/dunsborough", "destination": "/dunsborough.html" },
+    { "source": "/margaret-river", "destination": "/margaret-river.html" }
+  ]
+}
