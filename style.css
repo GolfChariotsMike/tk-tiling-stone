@@ -97,7 +97,8 @@ body {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;
+  padding-top: 12px !important;
   left: 50%;
   transform: translateX(-50%);
   background: var(--stone);
@@ -109,6 +110,8 @@ body {
   z-index: 200;
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
+.dropdown-menu li:first-child { border-radius: 6px 6px 0 0; }
+.dropdown-menu li:last-child { border-radius: 0 0 6px 6px; }
 .dropdown-menu li a {
   display: block;
   padding: 10px 20px;
@@ -116,6 +119,7 @@ body {
   font-size: 0.8rem;
 }
 .dropdown-menu li a:hover { background: rgba(255,255,255,0.06); color: var(--gold); }
+.dropdown:hover .dropdown-menu { display: block; }
 .dropdown.open .dropdown-menu { display: block; }
 .btn-nav {
   background: var(--gold) !important;
